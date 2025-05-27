@@ -144,48 +144,30 @@ if __name__ == "__main__":
         copy_folder_contents_to_txt(base_folder)
     elif user_choice == 's':
         print("\nMode Spesifik dipilih.")
-        print("Format: 's [folder_path1] [folder_path2] ... e [folder_path_exclude1] [folder_path_exclude2] ...'")
-        print("Contoh: 's src data e node_modules build'")
-        print("Folder path harus relatif terhadap folder dasar (tempat script ini berada).")
-        print("Jika 'e' tidak diikuti path apapun, tidak ada folder yang dikecualikan.")
+        print("Masukkan jalur folder yang ingin Anda **sertakan**, pisahkan dengan spasi. Contoh: 'src data' (kosongkan jika ingin menyertakan semua).")
+        specific_input = input("Folder yang akan disertakan: ").strip()
+        if specific_input:
+            specific_folders_to_include = specific_input.split()
 
-        specific_input = input("Masukkan folder spesifik dan/atau pengecualian Anda: ").strip()
-
-        parts = specific_input.split()
-        if not parts:
-            print("Tidak ada input yang diberikan. Memulai mode otomatis sebagai fallback.")
-            copy_folder_contents_to_txt(base_folder)
-        else:
-            current_mode = None
-            for part in parts:
-                if part.lower() == 's':
-                    current_mode = 'specific'
-                elif part.lower() == 'e':
-                    current_mode = 'exclude'
-                elif current_mode == 'specific':
-                    specific_folders_to_include.append(part)
-                elif current_mode == 'exclude':
-                    folders_to_exclude.append(part)
-                else:
-                    print(f"Peringatan: Bagian '{part}' tidak dikenali. Melewati.")
-
-            # No need to filter non-existent specific/exclude folders here,
-            # as it's now handled inside copy_folder_contents_to_txt based on walk_roots.
-
-            if not specific_folders_to_include and not folders_to_exclude:
-                print("Tidak ada folder spesifik atau pengecualian yang valid ditemukan. Memulai mode otomatis sebagai fallback.")
-                copy_folder_contents_to_txt(base_folder)
-            else:
-                if not specific_folders_to_include and folders_to_exclude:
-                    print("Mode spesifik tanpa folder spesifik berarti semua folder akan dipertimbangkan, kecuali yang dikecualikan.")
-
-                print(f"Folder yang akan disalin: {specific_folders_to_include if specific_folders_to_include else 'Semua'}")
-                print(f"Folder yang akan dikecualikan: {folders_to_exclude if folders_to_exclude else 'Tidak ada'}")
-                
-                copy_folder_contents_to_txt(
-                    base_folder,
-                    specific_folders=specific_folders_to_include,
-                    exclude_folders=folders_to_exclude
-                )
+        print("\nMasukkan jalur folder yang ingin Anda **kecualikan**, pisahkan dengan spasi. Contoh: 'node_modules build' (kosongkan jika tidak ada yang dikecualikan).")
+        exclude_input = input("Folder yang akan dikecualikan: ").strip()
+        if exclude_input:
+            folders_to_exclude = exclude_input.split()
+        
+        # If no specific folders are provided but exclude folders are, assume "all" are included
+        if not specific_folders_to_include and folders_to_exclude:
+            print("Anda memilih untuk tidak menyertakan folder spesifik, tetapi ada folder yang dikecualikan. Ini berarti semua folder akan dipertimbangkan, kecuali yang dikecualikan.")
+        elif not specific_folders_to_include and not folders_to_exclude:
+            print("Tidak ada folder spesifik atau pengecualian yang diberikan. Akan menyalin semua folder di folder dasar (mode otomatis).")
+            
+        print(f"\nRingkasan pilihan Anda:")
+        print(f"Folder yang akan disalin: {specific_folders_to_include if specific_folders_to_include else 'Semua'}")
+        print(f"Folder yang akan dikecualikan: {folders_to_exclude if folders_to_exclude else 'Tidak ada'}")
+        
+        copy_folder_contents_to_txt(
+            base_folder,
+            specific_folders=specific_folders_to_include,
+            exclude_folders=folders_to_exclude
+        )
     else:
         print("Pilihan tidak valid. Silakan masukkan 'a' atau 's'.")
