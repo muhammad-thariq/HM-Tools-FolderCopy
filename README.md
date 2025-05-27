@@ -1,3 +1,6 @@
+   ```bash
+   git clone https://github.com/muhammad-thariq/folder_copy.git
+   ```
 # Copy folder contents into .txt files
 
 ---
