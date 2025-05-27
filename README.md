@@ -1,4 +1,4 @@
-# Folder Copy
+# Copy folder contents into .txt files
 
 ---
 
