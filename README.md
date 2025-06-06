@@ -1,5 +1,5 @@
    ```bash
-   git clone https://github.com/muhammad-thariq/folder_copy.git
+   git clone https://github.com/muhammad-thariq/folder-copy.git
    ```
 # Copy folder contents into .txt files
 
