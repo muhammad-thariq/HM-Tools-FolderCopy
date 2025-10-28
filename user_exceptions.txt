@@ -1,0 +1,2 @@
+C:\Users\Thariq\Documents\ITS\PROJECT\my-animated-portfolio\src\components\ui
+C:\Users\Thariq\Documents\ITS\PROJECT\my-animated-portfolio\src\app\favicon.ico
