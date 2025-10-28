@@ -1,15 +1,15 @@
-# Folder Copy (path.txt + exception.txt)
+# Folder Copy (user_paths.txt + user_exceptions.txt)
 
 A small Python utility that **exports folder trees and file contents** into rotating TXT files.  
-It reads **`path.txt`** (include list) and **`exception.txt`** (exclude list), so the user **doesn’t need to pass any CLI flags**.
+It reads **`user_paths.txt`** (include list) and **`user_exceptions.txt`** (exclude list), so the user **doesn’t need to pass any CLI flags**.
 
-> Bahasa: Script ini menyalin struktur folder dan isi file ke TXT. Path dibaca dari `path.txt` (yang ingin disalin) dan pengecualian dari `exception.txt` (yang ingin dikecualikan). Tidak perlu input `a/s` di terminal.
+> Bahasa: Script ini menyalin struktur folder dan isi file ke TXT. Path dibaca dari `user_paths.txt` (yang ingin disalin) dan pengecualian dari `user_exceptions.txt` (yang ingin dikecualikan). Tidak perlu input `a/s` di terminal.
 
 ---
 
 ## Features
-- Read multiple **include paths** from `path.txt`, one per line.
-- Read multiple **exclusion paths** from `exception.txt`, one per line.
+- Read multiple **include paths** from `user_paths.txt`, one per line.
+- Read multiple **exclusion paths** from `user_exceptions.txt`, one per line.
 - **Directories** are walked recursively; **files** are read exactly.
 - **No extension ⇒ treated as a directory path**.
 - Exclusions can be **folders or files**; excluded folders skip all descendants.
@@ -29,18 +29,18 @@ It reads **`path.txt`** (include list) and **`exception.txt`** (exclude list), s
 ## Files in this folder
 ```
 your_script.py        # the main script (put any name you like)
-path.txt              # list of include paths (required; if empty/missing, defaults to '.')
-exception.txt         # list of exclude paths (optional)
+user_paths.txt              # list of include paths (required; if empty/missing, defaults to '.')
+user_exceptions.txt         # list of exclude paths (optional)
 output_code_1.txt     # generated output (auto-rotated)
 output_code_2.txt
 ...
 ```
-> Put `your_script.py`, `path.txt`, and (optionally) `exception.txt` in the **same folder**.
+> Put `your_script.py`, `user_paths.txt`, and (optionally) `user_exceptions.txt` in the **same folder**.
 
 ---
 
 ## Quick Start
-1. **Create/Edit `path.txt`** — one entry per line:
+1. **Create/Edit `user_paths.txt`** — one entry per line:
    ```
    C:\laragon\www\mini-project\ITS-PBKK-MID\app
    ./src
@@ -49,7 +49,7 @@ output_code_2.txt
    - **Folder path** (with or without trailing slash) ⇒ the entire folder will be scanned.
    - **File path** (has an extension) ⇒ only that file will be read.
 
-2. **Create/Edit `exception.txt`** (optional) — one entry per line:
+2. **Create/Edit `user_exceptions.txt`** (optional) — one entry per line:
    ```
    node_modules
    build
@@ -111,10 +111,10 @@ output_code_2.txt
 
 ## Troubleshooting
 - **“[error] Nothing to process.”**  
-  `path.txt` is empty or all entries are invalid/missing.
+  `user_paths.txt` is empty or all entries are invalid/missing.
 - **Permission errors** on some files/folders  
-  Run with sufficient permissions or exclude the paths in `exception.txt`.
+  Run with sufficient permissions or exclude the paths in `user_exceptions.txt`.
 - **Binary files look garbled**  
-  Script opens files as text (`encoding='utf-8', errors='ignore'`). Add patterns to `exception.txt` or adapt the reader for binary handling.
+  Script opens files as text (`encoding='utf-8', errors='ignore'`). Add patterns to `user_exceptions.txt` or adapt the reader for binary handling.
 
 ---
